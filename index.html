@@ -33,7 +33,7 @@
   tbody td:first-child { text-align:left; font-weight:500; }
   .section-row td { background:#eef0f5; font-weight:700; color:#1a1a2e; text-align:left !important; padding:8px 12px; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; }
   .subtotal-row td { background:#f0f4ff; font-weight:700; border-top:2px solid #d0d8f0; }
-  .total-row { background:#1a1a2e !important; color:white; }
+  .total-row { background:#1a1a2e !important; }
   .total-row td { color:white; font-weight:700; border-bottom:none; }
   .neg { color:#e74c3c; } .pos { color:#27ae60; }
   .bar-wrap { background:white; border-radius:10px; padding:22px; box-shadow:0 1px 6px rgba(0,0,0,0.07); margin-bottom:22px; }
@@ -41,9 +41,7 @@
   .bar-label { width:150px; font-size:0.76rem; color:#555; flex-shrink:0; }
   .bar-track { flex:1; background:#eee; border-radius:4px; height:16px; }
   .bar-fill { height:16px; border-radius:4px; }
-  .bar-fill.income { background:#27ae60; }
   .bar-fill.expense { background:#e74c3c; }
-  .bar-fill.net-pos { background:#2980b9; }
   .bar-fill.net-neg { background:#e8b84b; }
   .bar-val { width:100px; text-align:right; font-size:0.76rem; font-weight:600; color:#333; }
   .alert-box { background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:14px 18px; margin-bottom:22px; font-size:0.83rem; color:#856404; }
@@ -55,6 +53,24 @@
   .summary-card h3 { font-size:0.75rem; text-transform:uppercase; color:#999; margin-bottom:10px; letter-spacing:0.5px; }
   .srow { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f0f0f0; font-size:0.83rem; }
   .srow:last-child { border-bottom:none; font-weight:700; font-size:0.9rem; padding-top:10px; }
+
+  /* ── Recommendations ── */
+  .rec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px; }
+  @media(max-width:800px){ .rec-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:500px){ .rec-grid{grid-template-columns:1fr;} }
+  .rec-card { background:white; border-radius:10px; padding:18px 18px 16px; box-shadow:0 1px 6px rgba(0,0,0,0.07); border-top:4px solid #ccc; display:flex; flex-direction:column; gap:8px; }
+  .rec-card.priority-high { border-top-color:#e74c3c; }
+  .rec-card.priority-med  { border-top-color:#e8b84b; }
+  .rec-card.priority-low  { border-top-color:#2980b9; }
+  .rec-card .rec-tag { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; padding:2px 8px; border-radius:10px; display:inline-block; width:fit-content; }
+  .priority-high .rec-tag { background:#fdecea; color:#c0392b; }
+  .priority-med  .rec-tag { background:#fef9e7; color:#b7770d; }
+  .priority-low  .rec-tag { background:#eaf3fb; color:#1a6fa0; }
+  .rec-card .rec-title { font-size:0.88rem; font-weight:700; color:#1a1a2e; line-height:1.3; }
+  .rec-card .rec-prop { font-size:0.72rem; color:#999; font-style:italic; }
+  .rec-card .rec-body { font-size:0.79rem; color:#444; line-height:1.5; }
+  .rec-card .rec-impact { font-size:0.75rem; font-weight:600; color:#27ae60; margin-top:2px; }
+  .rec-card .rec-impact.neg-impact { color:#e74c3c; }
 </style>
 </head>
 <body>
@@ -74,7 +90,7 @@
   <!-- Alert -->
   <div class="alert-box">
     <strong>⚠ Portfolio Note — As of June 30, 2026</strong>
-    Total expenses ($57,644.81) significantly exceed YTD rental income ($26,305.00). The primary drivers are Interest Expense ($31,267.23) and Repairs &amp; Maintenance ($13,934.38). 13 Akokisa Dr shows $0 rental income YTD and requires attention.
+    Total expenses ($57,644.81) significantly exceed YTD rental income ($26,305.00). The primary drivers are Interest Expense ($31,267.23) and Repairs &amp; Maintenance ($13,934.38). 13 Akokisa Dr shows $0 rental income YTD and requires immediate attention.
   </div>
 
   <!-- KPI Row -->
@@ -121,60 +137,27 @@
       <div class="srow"><span>Repairs &amp; Maintenance</span><span class="neg">$13,934.38</span></div>
       <div class="srow"><span>Management Fees</span><span class="neg">$4,383.50</span></div>
       <div class="srow"><span>Insurance</span><span class="neg">$3,395.68</span></div>
-      <div class="srow"><span>Utilities</span><span class="neg">$1,535.35</span></div>
       <div class="srow"><span>HOA Fees</span><span class="neg">$1,667.10</span></div>
+      <div class="srow"><span>Utilities</span><span class="neg">$1,535.35</span></div>
       <div class="srow"><span>Escrow Fees</span><span class="neg">$1,330.89</span></div>
-      <div class="srow"><span>Landscaping</span><span class="neg">$120.00</span></div>
-      <div class="srow"><span>Storage</span><span class="neg">$15.00</span></div>
-      <div class="srow"><span>Taxes</span><span class="neg">-$4.32</span></div>
+      <div class="srow"><span>Landscaping / Storage</span><span class="neg">$135.00</span></div>
+      <div class="srow"><span>Taxes</span><span class="pos">-$4.32</span></div>
       <div class="srow"><span>Total Expenses</span><span class="neg">$57,644.81</span></div>
     </div>
   </div>
 
-  <!-- Net Income by Property Bar Chart -->
+  <!-- Net Income Bar Chart -->
   <h2>Net Income by Property (YTD)</h2>
   <div class="bar-wrap">
-    <div style="font-size:0.75rem;color:#999;margin-bottom:14px;">Red = net loss &nbsp;|&nbsp; Blue = net gain</div>
-    <div class="bar-row">
-      <div class="bar-label">11 Akokisa Dr</div>
-      <div class="bar-track"><div class="bar-fill net-neg" style="width:1.4%"></div></div>
-      <div class="bar-val neg">-$448</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">13 Akokisa Dr</div>
-      <div class="bar-track"><div class="bar-fill expense" style="width:16.1%"></div></div>
-      <div class="bar-val neg">-$5,043</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">15 Niska Dr</div>
-      <div class="bar-track"><div class="bar-fill expense" style="width:42.0%"></div></div>
-      <div class="bar-val neg">-$13,172</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">16 Annette Rd</div>
-      <div class="bar-track"><div class="bar-fill expense" style="width:17.5%"></div></div>
-      <div class="bar-val neg">-$5,492</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">16 Arapaho Dr</div>
-      <div class="bar-track"><div class="bar-fill expense" style="width:10.9%"></div></div>
-      <div class="bar-val neg">-$3,404</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">24 Tenkiller Ln</div>
-      <div class="bar-track"><div class="bar-fill net-neg" style="width:2.8%"></div></div>
-      <div class="bar-val neg">-$880</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">32 Tenkiller Ln</div>
-      <div class="bar-track"><div class="bar-fill expense" style="width:8.4%"></div></div>
-      <div class="bar-val neg">-$2,638</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">85 Cree Dr</div>
-      <div class="bar-track"><div class="bar-fill net-neg" style="width:0.8%"></div></div>
-      <div class="bar-val neg">-$263</div>
-    </div>
+    <div style="font-size:0.75rem;color:#999;margin-bottom:14px;">All properties show a net loss YTD — bar length = magnitude of loss</div>
+    <div class="bar-row"><div class="bar-label">11 Akokisa Dr</div><div class="bar-track"><div class="bar-fill net-neg" style="width:1.4%"></div></div><div class="bar-val neg">-$448</div></div>
+    <div class="bar-row"><div class="bar-label">13 Akokisa Dr</div><div class="bar-track"><div class="bar-fill expense" style="width:16.1%"></div></div><div class="bar-val neg">-$5,043</div></div>
+    <div class="bar-row"><div class="bar-label">15 Niska Dr</div><div class="bar-track"><div class="bar-fill expense" style="width:42.0%"></div></div><div class="bar-val neg">-$13,172</div></div>
+    <div class="bar-row"><div class="bar-label">16 Annette Rd</div><div class="bar-track"><div class="bar-fill expense" style="width:17.5%"></div></div><div class="bar-val neg">-$5,492</div></div>
+    <div class="bar-row"><div class="bar-label">16 Arapaho Dr</div><div class="bar-track"><div class="bar-fill expense" style="width:10.9%"></div></div><div class="bar-val neg">-$3,404</div></div>
+    <div class="bar-row"><div class="bar-label">24 Tenkiller Ln</div><div class="bar-track"><div class="bar-fill net-neg" style="width:2.8%"></div></div><div class="bar-val neg">-$880</div></div>
+    <div class="bar-row"><div class="bar-label">32 Tenkiller Ln</div><div class="bar-track"><div class="bar-fill expense" style="width:8.4%"></div></div><div class="bar-val neg">-$2,638</div></div>
+    <div class="bar-row"><div class="bar-label">85 Cree Dr</div><div class="bar-track"><div class="bar-fill net-neg" style="width:0.8%"></div></div><div class="bar-val neg">-$263</div></div>
   </div>
 
   <!-- Full P&L Table -->
@@ -183,22 +166,14 @@
     <thead>
       <tr>
         <th style="text-align:left">Category</th>
-        <th>11 Akokisa</th>
-        <th>13 Akokisa</th>
-        <th>15 Niska</th>
-        <th>16 Annette</th>
-        <th>16 Arapaho</th>
-        <th>24 Tenkiller</th>
-        <th>32 Tenkiller</th>
-        <th>85 Cree</th>
-        <th>Total</th>
+        <th>11 Akokisa</th><th>13 Akokisa</th><th>15 Niska</th><th>16 Annette</th>
+        <th>16 Arapaho</th><th>24 Tenkiller</th><th>32 Tenkiller</th><th>85 Cree</th><th>Total</th>
       </tr>
     </thead>
     <tbody>
       <tr><td class="section-row" colspan="10">INCOME</td></tr>
       <tr><td>Rental Income</td><td>$5,970</td><td class="neg">$0</td><td>$3,500</td><td>$1,100</td><td>$2,985</td><td>$5,400</td><td>$2,450</td><td>$4,900</td><td><strong>$26,305</strong></td></tr>
       <tr class="subtotal-row"><td>Total Income</td><td>$5,970</td><td class="neg">$0</td><td>$3,500</td><td>$1,100</td><td>$2,985</td><td>$5,400</td><td>$2,450</td><td>$4,900</td><td><strong>$26,305</strong></td></tr>
-
       <tr><td class="section-row" colspan="10">EXPENSES</td></tr>
       <tr><td>Escrow Fees</td><td>—</td><td>—</td><td>—</td><td>$1,331</td><td>—</td><td>—</td><td>—</td><td>—</td><td>$1,331</td></tr>
       <tr><td>HOA Fees</td><td>$400</td><td>$400</td><td>—</td><td>$67</td><td>—</td><td>$400</td><td>$400</td><td>—</td><td>$1,667</td></tr>
@@ -211,30 +186,22 @@
       <tr><td>Taxes</td><td>—</td><td>—</td><td>—</td><td class="pos">-$4</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="pos">-$4</td></tr>
       <tr><td>Utilities</td><td>—</td><td>—</td><td>$313</td><td>$653</td><td>$125</td><td>$445</td><td>—</td><td>—</td><td>$1,535</td></tr>
       <tr class="subtotal-row"><td>Total Expenses</td><td>$6,418</td><td>$5,043</td><td>$16,672</td><td>$6,592</td><td>$6,389</td><td>$6,280</td><td>$5,088</td><td>$5,163</td><td><strong>$57,645</strong></td></tr>
-
       <tr class="total-row">
         <td>NET INCOME (YTD)</td>
-        <td class="neg">-$448</td>
-        <td class="neg">-$5,043</td>
-        <td class="neg">-$13,172</td>
-        <td class="neg">-$5,492</td>
-        <td class="neg">-$3,404</td>
-        <td class="neg">-$880</td>
-        <td class="neg">-$2,638</td>
-        <td class="neg">-$263</td>
+        <td class="neg">-$448</td><td class="neg">-$5,043</td><td class="neg">-$13,172</td><td class="neg">-$5,492</td>
+        <td class="neg">-$3,404</td><td class="neg">-$880</td><td class="neg">-$2,638</td><td class="neg">-$263</td>
         <td class="neg"><strong>-$31,340</strong></td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Monthly Average -->
-  <h2>Monthly Averages (Based on 6 Months Jan–Jun 30)</h2>
+  <!-- Monthly Averages -->
   <div class="two-col">
     <div class="summary-card">
-      <h3>Per Month Average</h3>
-      <div class="srow"><span>Avg Monthly Income</span><span class="pos">$4,047</span></div>
-      <div class="srow"><span>Avg Monthly Expenses</span><span class="neg">$8,868</span></div>
-      <div class="srow"><span>Avg Monthly Net</span><span class="neg">-$4,821</span></div>
+      <h3>Monthly Averages (6 Months)</h3>
+      <div class="srow"><span>Avg Monthly Income</span><span class="pos">$4,384</span></div>
+      <div class="srow"><span>Avg Monthly Expenses</span><span class="neg">$9,607</span></div>
+      <div class="srow"><span>Avg Monthly Net</span><span class="neg">-$5,223</span></div>
     </div>
     <div class="summary-card">
       <h3>Biggest Expense Drivers</h3>
@@ -245,7 +212,97 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- RECOMMENDATIONS SECTION -->
+  <!-- ══════════════════════════════════════════════ -->
+  <h2>Strategic Recommendations</h2>
+
+  <div class="rec-grid">
+
+    <!-- 1 -->
+    <div class="rec-card priority-high">
+      <span class="rec-tag">🔴 High Priority</span>
+      <div class="rec-title">Lease or Sell 13 Akokisa Dr Immediately</div>
+      <div class="rec-prop">13 Akokisa Dr</div>
+      <div class="rec-body">This property generated $0 income in 6 months while incurring $5,043 in expenses (HOA, insurance, interest). Every month of vacancy deepens the loss. Aggressively market for rent or evaluate a sale to redeploy capital.</div>
+      <div class="rec-impact neg-impact">Current drag: -$5,043 YTD with no offsetting revenue</div>
+    </div>
+
+    <!-- 2 -->
+    <div class="rec-card priority-high">
+      <span class="rec-tag">🔴 High Priority</span>
+      <div class="rec-title">Audit 15 Niska Dr Repair Spend</div>
+      <div class="rec-prop">15 Niska Dr</div>
+      <div class="rec-body">$11,939 in repairs YTD is the single largest expense line in the entire portfolio — 85% of that property's total costs. Determine if this is a one-time capital improvement or ongoing deferred maintenance, and cap future spend with a repair threshold policy.</div>
+      <div class="rec-impact neg-impact">R&amp;M alone = 3.4× annual rent collected at this property</div>
+    </div>
+
+    <!-- 3 -->
+    <div class="rec-card priority-high">
+      <span class="rec-tag">🔴 High Priority</span>
+      <div class="rec-title">Refinance or Renegotiate Debt</div>
+      <div class="rec-prop">All Properties</div>
+      <div class="rec-body">Interest expense at $31,267 is 54% of all costs and exceeds total rental income by $4,962. Explore refinancing at lower rates, consolidating loans, or paying down highest-rate balances first. Even a 1% rate reduction could save ~$3,000/yr per property.</div>
+      <div class="rec-impact neg-impact">Interest exceeds all rental income by $4,962 YTD</div>
+    </div>
+
+    <!-- 4 -->
+    <div class="rec-card priority-med">
+      <span class="rec-tag">🟡 Medium Priority</span>
+      <div class="rec-title">Raise Rents to Market Rate</div>
+      <div class="rec-prop">16 Annette Rd · 32 Tenkiller Ln</div>
+      <div class="rec-body">16 Annette Rd collected only $1,100 in 6 months (likely partial occupancy or below-market rent). 32 Tenkiller Ln collected $2,450 vs. a $1,100/mo budget — suggesting a lease renewal opportunity. Review all leases against current market comparables in the area.</div>
+      <div class="rec-impact">Potential uplift: $200–$400/mo per underpriced unit</div>
+    </div>
+
+    <!-- 5 -->
+    <div class="rec-card priority-med">
+      <span class="rec-tag">🟡 Medium Priority</span>
+      <div class="rec-title">Review Management Fee Structure</div>
+      <div class="rec-prop">15 Niska Dr · 16 Annette Rd · 16 Arapaho Dr</div>
+      <div class="rec-body">Management fees total $4,384 YTD. 15 Niska Dr paid $920 in mgmt fees on only $3,500 in collected rent — a 26% effective rate. Renegotiate to a standard 8–10% rate across all properties and ensure fees are only charged on collected rent.</div>
+      <div class="rec-impact">Potential savings: ~$800–$1,200/yr at market rates</div>
+    </div>
+
+    <!-- 6 -->
+    <div class="rec-card priority-med">
+      <span class="rec-tag">🟡 Medium Priority</span>
+      <div class="rec-title">Bundle Insurance Policies</div>
+      <div class="rec-prop">All Properties</div>
+      <div class="rec-body">With 8 properties paying separate insurance premiums totaling $3,396 YTD, a landlord portfolio policy or commercial umbrella policy could reduce premiums by 15–25%. Get a quote covering all Cherokee properties under one policy.</div>
+      <div class="rec-impact">Potential savings: $500–$850/yr with bundled coverage</div>
+    </div>
+
+    <!-- 7 -->
+    <div class="rec-card priority-med">
+      <span class="rec-tag">🟡 Medium Priority</span>
+      <div class="rec-title">Implement a Repair &amp; Maintenance Cap Policy</div>
+      <div class="rec-prop">All Properties</div>
+      <div class="rec-body">R&amp;M totals $13,934 YTD with no apparent policy governing approval thresholds. Set a $500 per-incident cap requiring owner approval above that. Use a preventive maintenance schedule to reduce emergency repairs, which are always more costly.</div>
+      <div class="rec-impact">Goal: reduce unplanned R&amp;M by 30–40% in H2 2026</div>
+    </div>
+
+    <!-- 8 -->
+    <div class="rec-card priority-low">
+      <span class="rec-tag">🔵 Longer Term</span>
+      <div class="rec-title">Consolidate Utility Billing</div>
+      <div class="rec-prop">15 Niska Dr · 16 Annette Rd · 24 Tenkiller Ln</div>
+      <div class="rec-body">Utilities ($1,535 YTD) are being paid by the owner at 3 properties. Where lease terms allow, transition to tenant-paid utilities at renewal. This alone removes ~$3,000/yr from the expense column without affecting rental income.</div>
+      <div class="rec-impact">Potential savings: ~$3,000/yr if shifted to tenants</div>
+    </div>
+
+    <!-- 9 -->
+    <div class="rec-card priority-low">
+      <span class="rec-tag">🔵 Longer Term</span>
+      <div class="rec-title">Evaluate Low-Performing Assets for Sale</div>
+      <div class="rec-prop">13 Akokisa Dr · 15 Niska Dr</div>
+      <div class="rec-body">Together these two properties account for $18,215 (58%) of total net losses. If repair and occupancy issues cannot be resolved by Q3 2026, a disposition analysis (sale price vs. continued carrying cost) should be completed to protect overall portfolio returns.</div>
+      <div class="rec-impact neg-impact">Combined loss: -$18,215 YTD (58% of total portfolio loss)</div>
+    </div>
+
+  </div>
+
 </div>
-<footer>KM Partners, LLC &nbsp;|&nbsp; Cherokee Dashboard &nbsp;|&nbsp; YTD as of June 30, 2026 &nbsp;|&nbsp; Confidential</footer>
+<footer>KM Partners, LLC &nbsp;|&nbsp; Cherokee Dashboard &nbsp;|&nbsp; YTD as of June 30, 2026 &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; Generated July 14, 2026</footer>
 </body>
 </html>
