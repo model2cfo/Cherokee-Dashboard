@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>King Rhodes Property Services — July 2026 Report</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #1a1a2e; }
+  header { background: #1a1a2e; color: white; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
+  header h1 { font-size: 1.6rem; font-weight: 700; }
+  header p { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
+  .badge { background: #e8b84b; color: #1a1a2e; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 30px; }
+  .kpi { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); border-top: 4px solid #1a1a2e; }
+  .kpi.green { border-top-color: #27ae60; }
+  .kpi.red { border-top-color: #e74c3c; }
+  .kpi.gold { border-top-color: #e8b84b; }
+  .kpi label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; }
+  .kpi .val { font-size: 1.7rem; font-weight: 800; margin-top: 6px; }
+  .kpi .sub { font-size: 0.75rem; color: #aaa; margin-top: 4px; }
+  .kpi.green .val { color: #27ae60; }
+  .kpi.red .val { color: #e74c3c; }
+  .kpi.gold .val { color: #e8b84b; }
+  h2 { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin: 24px 0 12px; border-left: 4px solid #e8b84b; padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); margin-bottom: 24px; font-size: 0.85rem; }
+  thead { background: #1a1a2e; color: white; }
+  thead th { padding: 11px 14px; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.4px; }
+  tbody tr:nth-child(even) { background: #f9fafb; }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid #eee; }
+  .tag { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; }
+  .tag.occupied { background: #d4edda; color: #155724; }
+  .tag.vacant { background: #f8d7da; color: #721c24; }
+  .pos { color: #27ae60; font-weight: 600; }
+  .neg { color: #e74c3c; }
+  .section-header { background: #eef0f5; font-weight: 700; color: #1a1a2e; }
+  .totals-row { background: #1a1a2e !important; color: white; font-weight: 700; }
+  .totals-row td { color: white; border-bottom: none; }
+  .budget-box { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 30px; }
+  .budget-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .budget-card h3 { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 12px; letter-spacing: 0.5px; }
+  .budget-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.88rem; }
+  .budget-row:last-child { border-bottom: none; font-weight: 700; font-size: 0.95rem; padding-top: 10px; }
+  .chart-bar-wrap { margin-bottom: 30px; background: white; border-radius: 10px; padding: 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 10px; }
+  .bar-label { width: 160px; font-size: 0.78rem; color: #555; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #eee; border-radius: 4px; height: 18px; }
+  .bar-fill { height: 18px; border-radius: 4px; background: #1a1a2e; }
+  .bar-fill.collected { background: #27ae60; }
+  .bar-fill.budget { background: #e8b84b; }
+  .bar-val { width: 90px; text-align: right; font-size: 0.8rem; font-weight: 600; color: #333; }
+  footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #aaa; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>King Rhodes Property Services</h1>
+    <p>Revenue &amp; Expense Report — July 2026</p>
+  </div>
+  <span class="badge">JULY 2026</span>
+</header>
+
+<div class="container">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi gold">
+      <label>Budget Income</label>
+      <div class="val">$20,825</div>
+      <div class="sub">Monthly target</div>
+    </div>
+    <div class="kpi green">
+      <label>Actual Collected</label>
+      <div class="val">$17,084</div>
+      <div class="sub">82% of budget</div>
+    </div>
+    <div class="kpi red">
+      <label>Total Expenses</label>
+      <div class="val">$5,778</div>
+      <div class="sub">Mgmt + Repairs</div>
+    </div>
+    <div class="kpi green">
+      <label>Net Income (Actual)</label>
+      <div class="val">$11,306</div>
+      <div class="sub">vs. $18,743 budget</div>
+    </div>
+  </div>
+
+  <!-- Budget vs Actual -->
+  <h2>Budget vs. Actual Summary</h2>
+  <div class="budget-box">
+    <div class="budget-card">
+      <h3>Budget</h3>
+      <div class="budget-row"><span>Gross Income</span><span>$20,825.00</span></div>
+      <div class="budget-row"><span>Management Expenses</span><span class="neg">-$2,082.50</span></div>
+      <div class="budget-row"><span>Net Income Budget</span><span class="pos">$18,742.50</span></div>
+    </div>
+    <div class="budget-card">
+      <h3>Actual</h3>
+      <div class="budget-row"><span>Gross Collected</span><span>$17,084.36</span></div>
+      <div class="budget-row"><span>Management Fees Paid</span><span class="neg">-$3,103.25</span></div>
+      <div class="budget-row"><span>Repairs &amp; Maintenance</span><span class="neg">-$2,675.26</span></div>
+      <div class="budget-row"><span>Net Income Actual</span><span class="pos">$11,305.85</span></div>
+    </div>
+  </div>
+
+  <!-- Collection by Property Group Bar Chart -->
+  <h2>Collection by Property Group</h2>
+  <div class="chart-bar-wrap">
+    <div class="bar-row">
+      <div class="bar-label">1002 Pearl Dr (VRBO)</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:100%"></div></div>
+      <div class="bar-val">$3,449.36</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">1948 Hwy 63 Hardy</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:99%"></div></div>
+      <div class="bar-val">$3,420.00</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Single Family Homes</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:139%"></div></div>
+      <div class="bar-val">$4,690.00</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">304 N. 2nd St</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:35%"></div></div>
+      <div class="bar-val">$1,200.00</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">306 N. 2nd St</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:36%"></div></div>
+      <div class="bar-val">$1,250.00</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">322 Spruce St</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:46%"></div></div>
+      <div class="bar-val">$1,600.00</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">1956 Hwy 63 Hardy</div>
+      <div class="bar-track"><div class="bar-fill collected" style="width:17%"></div></div>
+      <div class="bar-val">$575.00</div>
+    </div>
+  </div>
+
+  <!-- Single Family Properties -->
+  <h2>Single Family Properties</h2>
+  <table>
+    <thead><tr><th>Property</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>1002 Pearl Dr (VRBO)</td><td><span class="tag occupied">Occupied</span></td><td>$3,449.36</td><td>—</td><td class="neg">-$1,279.75</td><td class="neg">-$880.41</td><td class="pos">$1,289.20</td></tr>
+      <tr><td>11 Akokisa Dr</td><td><span class="tag occupied">Occupied</span></td><td>$995.00</td><td>$995.00</td><td class="neg">-$99.50</td><td class="neg">-$160.00</td><td class="pos">$735.50</td></tr>
+      <tr><td>13 Akokisa Dr</td><td><span class="tag vacant">Vacant</span></td><td>$0.00</td><td>$950.00</td><td>—</td><td>—</td><td class="neg">$0.00</td></tr>
+      <tr><td>16 Arapaho Dr</td><td><span class="tag occupied">Occupied</span></td><td>$995.00</td><td>$950.00</td><td class="neg">-$99.50</td><td class="neg">-$517.56</td><td class="pos">$377.94</td></tr>
+      <tr><td>15 Niska Dr</td><td><span class="tag occupied">Occupied</span></td><td>$700.00</td><td>$850.00</td><td class="neg">-$70.00</td><td>—</td><td class="pos">$630.00</td></tr>
+      <tr><td>16 Annette Dr</td><td><span class="tag occupied">Occupied</span></td><td>$1,100.00</td><td>$700.00</td><td class="neg">-$110.00</td><td class="neg">-$195.71</td><td class="pos">$794.29</td></tr>
+      <tr><td>24 Tenkiller Ln</td><td><span class="tag occupied">Occupied</span></td><td>$900.00</td><td>$900.00</td><td class="neg">-$90.00</td><td>—</td><td class="pos">$810.00</td></tr>
+      <tr><td>32 Tenkiller Ln</td><td><span class="tag occupied">Occupied</span></td><td>$900.00</td><td>$1,100.00</td><td class="neg">-$90.00</td><td>—</td><td class="pos">$810.00</td></tr>
+      <tr><td>85 Cree Dr</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$850.00</td><td>—</td><td>—</td><td class="neg">$0.00</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 1948 Hwy 63 Hardy -->
+  <h2>1948 Hwy 63 Hardy</h2>
+  <table>
+    <thead><tr><th>Unit</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>No. 01</td><td><span class="tag occupied">Occupied</span></td><td>$695.00</td><td>$316.00</td><td class="neg">-$69.50</td><td class="neg">-$160.00</td><td class="pos">$465.50</td></tr>
+      <tr><td>No. 01 - HUD</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$379.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 02</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$500.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 03</td><td><span class="tag occupied">Occupied</span></td><td>$500.00</td><td>$500.00</td><td class="neg">-$50.00</td><td class="neg">-$75.00</td><td class="pos">$375.00</td></tr>
+      <tr><td>No. 04</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$745.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 05</td><td><span class="tag occupied">Occupied</span></td><td>$625.00</td><td>$625.00</td><td class="neg">-$62.50</td><td class="neg">-$160.00</td><td class="pos">$402.50</td></tr>
+      <tr><td>No. 06</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$695.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 07</td><td><span class="tag occupied">Occupied</span></td><td>$525.00</td><td>$525.00</td><td class="neg">-$52.50</td><td>—</td><td class="pos">$472.50</td></tr>
+      <tr><td>No. 08</td><td><span class="tag vacant">Vacant</span></td><td>$0.00</td><td>$525.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 09</td><td><span class="tag occupied">Occupied</span></td><td>$500.00</td><td>$500.00</td><td class="neg">-$50.00</td><td class="neg">-$160.00</td><td class="pos">$290.00</td></tr>
+      <tr><td>No. 10</td><td><span class="tag occupied">Occupied</span></td><td>$575.00</td><td>$500.00</td><td class="neg">-$287.50</td><td>—</td><td class="pos">$287.50</td></tr>
+      <tr class="totals-row"><td>TOTALS</td><td></td><td>$3,420.00</td><td>$5,810.00</td><td>-$572.00</td><td>-$555.00</td><td>$2,293.00</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 1956 Hwy 63 Hardy -->
+  <h2>1956 Hwy 63 Hardy</h2>
+  <table>
+    <thead><tr><th>Unit</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>No. 01</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$625.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. 02</td><td><span class="tag occupied">Occupied</span></td><td>$575.00</td><td>$650.00</td><td class="neg">-$287.50</td><td>—</td><td class="pos">$287.50</td></tr>
+      <tr class="totals-row"><td>TOTALS</td><td></td><td>$575.00</td><td>$1,275.00</td><td>-$287.50</td><td>—</td><td>$287.50</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 304 N. 2nd St -->
+  <h2>304 N. 2nd St</h2>
+  <table>
+    <thead><tr><th>Unit</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>No. A</td><td><span class="tag occupied">Occupied</span></td><td>$600.00</td><td>$600.00</td><td class="neg">-$60.00</td><td class="neg">-$206.58</td><td class="pos">$333.42</td></tr>
+      <tr><td>No. B</td><td><span class="tag occupied">Occupied</span></td><td>$0.00</td><td>$600.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. C</td><td><span class="tag occupied">Occupied</span></td><td>$600.00</td><td>$600.00</td><td class="neg">-$60.00</td><td>—</td><td class="pos">$540.00</td></tr>
+      <tr class="totals-row"><td>TOTALS</td><td></td><td>$1,200.00</td><td>$1,800.00</td><td>-$120.00</td><td>-$206.58</td><td>$873.42</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 306 N. 2nd St -->
+  <h2>306 N. 2nd St</h2>
+  <table>
+    <thead><tr><th>Unit</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>No. A</td><td><span class="tag occupied">Occupied</span></td><td>$650.00</td><td>$600.00</td><td class="neg">-$65.00</td><td>—</td><td class="pos">$585.00</td></tr>
+      <tr><td>No. B</td><td><span class="tag occupied">Occupied</span></td><td>$600.00</td><td>$600.00</td><td class="neg">-$60.00</td><td>—</td><td class="pos">$540.00</td></tr>
+      <tr><td>No. C</td><td><span class="tag vacant">Vacant</span></td><td>$0.00</td><td>$600.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr><td>No. D</td><td><span class="tag vacant">Vacant</span></td><td>$0.00</td><td>$600.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr class="totals-row"><td>TOTALS</td><td></td><td>$1,250.00</td><td>$2,400.00</td><td>-$125.00</td><td>—</td><td>$1,125.00</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 322 Spruce St -->
+  <h2>322 Spruce St</h2>
+  <table>
+    <thead><tr><th>Unit</th><th>Status</th><th>Collected</th><th>Budget</th><th>Mgmt Fee</th><th>Expenses</th><th>Net to Owner</th></tr></thead>
+    <tbody>
+      <tr><td>No. 01</td><td><span class="tag occupied">Occupied</span></td><td>$550.00</td><td>$500.00</td><td class="neg">-$55.00</td><td>—</td><td class="pos">$495.00</td></tr>
+      <tr><td>No. 02</td><td><span class="tag occupied">Occupied</span></td><td>$525.00</td><td>$525.00</td><td class="neg">-$52.50</td><td>—</td><td class="pos">$472.50</td></tr>
+      <tr><td>No. 03</td><td><span class="tag occupied">Occupied</span></td><td>$525.00</td><td>$525.00</td><td class="neg">-$52.50</td><td class="neg">-$160.00</td><td class="pos">$312.50</td></tr>
+      <tr><td>No. 04</td><td><span class="tag vacant">Vacant</span></td><td>$0.00</td><td>$695.00</td><td>—</td><td>—</td><td>$0.00</td></tr>
+      <tr class="totals-row"><td>TOTALS</td><td></td><td>$1,600.00</td><td>$2,245.00</td><td>-$160.00</td><td>-$160.00</td><td>$1,280.00</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Grand Totals -->
+  <h2>Grand Totals — July 2026</h2>
+  <table>
+    <thead><tr><th>Category</th><th>Budget</th><th>Actual</th><th>Variance</th></tr></thead>
+    <tbody>
+      <tr><td>Gross Income</td><td>$20,825.00</td><td class="pos">$17,084.36</td><td class="neg">-$3,740.64</td></tr>
+      <tr><td>Management Expenses</td><td class="neg">-$2,082.50</td><td class="neg">-$3,103.25</td><td class="neg">-$1,020.75</td></tr>
+      <tr><td>Repairs &amp; Maintenance</td><td>—</td><td class="neg">-$2,675.26</td><td class="neg">-$2,675.26</td></tr>
+      <tr class="totals-row"><td>NET INCOME</td><td>$18,742.50</td><td>$11,305.85</td><td>-$7,436.65</td></tr>
+    </tbody>
+  </table>
+
+</div>
+<footer>King Rhodes Property Services &nbsp;|&nbsp; Cherokee Dashboard &nbsp;|&nbsp; Generated July 14, 2026 &nbsp;|&nbsp; Confidential</footer>
+</body>
+</html>
